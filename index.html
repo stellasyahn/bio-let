@@ -50,13 +50,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hint{font-size:11px;color:#8C8070;font-style:italic;font-family:'Playfair Display',serif;margin-bottom:14px;letter-spacing:.3px;}
 
 /* 지도 */
-  function LabMap({shelves, onSelect, selectedId}){
-  // 이 줄을 추가 (데이터가 없으면 아무것도 그리지 않음)
-  if (!shelves || !Array.isArray(shelves)) return null; 
-
-  const W=500, H=420, INK="#2D3561";
-  // ... 나머지 코드 ...
-}
 .map-wrap{background:#FDFAF3;border-radius:16px;border:1px solid #D4CCBB;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 20px rgba(45,53,97,.07),inset 0 1px 0 rgba(255,255,255,.9);position:relative;}
 .map-wrap::after{content:'Biology Lab — Floor Plan';position:absolute;top:10px;right:14px;font-family:'Playfair Display',serif;font-size:8.5px;font-style:italic;color:#B0A898;letter-spacing:.5px;}
 
@@ -290,22 +283,8 @@ function App(){
   const updateShelves=useCallback(fn=>{setShelves(prev=>{const next=fn(prev);persist(next,adminPin);return next;});},[adminPin,persist]);
   const toast_=(msg,t="ok")=>{setToast({msg,t});setTimeout(()=>setToast(null),2200);};
 
-  const currentShelf = shelves && Array.isArray(shelves) ? shelves.find(s => s.id === selId) : null;
-  const searchResults = (searchQ.trim() && Array.isArray(shelves)) ? (() => {
-  const q = searchQ.toLowerCase(), res = [];
-  shelves.forEach(sh => {
-    if (sh.floors) { // floors가 있는지 확인
-      sh.floors.forEach(fl => {
-        if (fl.items) { // items가 있는지 확인
-          fl.items.forEach(it => {
-            if (it.name.toLowerCase().includes(q)) res.push({ it, fl, sh });
-          });
-        }
-      });
-    }
-  });
-  return res;
-})() : [];
+  const currentShelf=shelves.find(s=>s.id===selId);
+  const searchResults=searchQ.trim()?(()=>{const q=searchQ.toLowerCase(),res=[];shelves.forEach(sh=>sh.floors.forEach(fl=>fl.items.forEach(it=>{if(it.name.toLowerCase().includes(q))res.push({it,fl,sh});})));return res;})():[];
 
   const tryLogin=()=>{if(pinInput===adminPin){setIsAdmin(true);setShowPin(false);setPinInput("");setPinErr(false);toast_("관리자 모드 활성화");}else{setPinErr(true);setPinInput("");}};
   const tryChangePin=()=>{
@@ -398,7 +377,7 @@ function App(){
             <label className="lbl">메모</label>
             <textarea value={itemForm.item.memo||""} onChange={e=>upd("memo",e.target.value)} placeholder="보관 위치, 주의사항 등…" rows={3} className="inp" style={{resize:"vertical",marginBottom:15,fontFamily:"'Noto Serif KR',serif",lineHeight:1.6}}/>
             <div style={{display:"flex",gap:8}}>
-              <button onClick={saveItem} className="bp" style={{flex:1}}>{itemForm.mode==="add"?"등록":"저장"}</button>
+              <button onClick={saveItem} className="bp" style={{flex:1}}>{itemForm.mode==="add"?"등록":itemForm.mode==="edit"?"저장":"저장"}</button>
               <button onClick={()=>setItemForm(null)} className="bs" style={{flex:1}}>취소</button>
             </div>
           </div>

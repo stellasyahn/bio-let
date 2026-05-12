@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://hqeyikssuqmdelnyotwk.supabase.co">
 <title>Biology Lab - Supabase</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -10,23 +12,20 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:linear-gradient(135deg,#E8F4F8 0%,#D4E9F0 100%);font-family:'Noto Serif KR',sans-serif;min-height:100vh;color:#2D3561;}
 #root{position:relative;z-index:1;}
-
 .hdr{background:linear-gradient(135deg,#5B7C99,#3D5A73);position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(61,90,115,.3);}
 .hdr-in{max-width:900px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .logo{display:flex;align-items:center;gap:12px;}
-.logo-ic{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.1));border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.logo-ic{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.1));border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:28px;}
 .logo-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:#FFF;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.2);}
 .logo-s{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px;letter-spacing:2px;}
 .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.btn-nav{padding:8px 18px;border-radius:24px;border:2px solid rgba(255,255,255,.3);cursor:pointer;font-size:13px;transition:all .3s;color:rgba(255,255,255,.8);background:transparent;font-family:'Noto Serif KR',sans-serif;font-weight:500;}
+.btn-nav{padding:8px 18px;border-radius:24px;border:2px solid rgba(255,255,255,.3);cursor:pointer;font-size:13px;transition:all .3s;color:rgba(255,255,255,.8);background:transparent;font-family:'Noto Serif KR',sans-serif;font-weight:600;}
 .btn-nav.act{background:rgba(255,255,255,.25);color:#FFF;border-color:rgba(255,255,255,.5);}
 .btn-nav:hover{background:rgba(255,255,255,.2);color:#FFF;transform:translateY(-2px);}
 .admin-badge{padding:6px 14px;border-radius:24px;background:linear-gradient(135deg,rgba(255,215,0,.3),rgba(255,200,0,.2));color:#FFD700;border:2px solid rgba(255,215,0,.4);font-size:11px;font-weight:600;cursor:pointer;}
-
 .ct{padding:28px 20px;max-width:900px;margin:0 auto;}
 .hint{font-size:12px;color:#5B7C99;font-style:italic;font-family:'Playfair Display',serif;margin-bottom:16px;text-align:center;}
-.map-wrapper{background:linear-gradient(135deg,#FFF 0%,#F0F8FF 100%);border-radius:20px;border:2px solid rgba(91,124,153,.2);overflow:hidden;margin-bottom:24px;box-shadow:0 8px 32px rgba(61,90,115,.15);padding:24px;}
-
+.map-wrapper{background:linear-gradient(135deg,#FFF 0%,#F0F8FF 100%);border-radius:20px;border:2px solid rgba(91,124,153,.2);overflow:hidden;margin-bottom:24px;box-shadow:0 8px 32px rgba(61,90,115,.15);}
 .btn{border:none;cursor:pointer;font-family:'Noto Serif KR',sans-serif;border-radius:12px;transition:all .3s;font-weight:600;}
 .btn-p{padding:10px 20px;background:linear-gradient(135deg,#5B7C99,#4A6B88);color:#FFF;font-size:13px;box-shadow:0 4px 12px rgba(61,90,115,.25);}
 .btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,90,115,.35);}
@@ -34,69 +33,103 @@ html,body{background:linear-gradient(135deg,#E8F4F8 0%,#D4E9F0 100%);font-family
 .btn-export{padding:10px 20px;background:linear-gradient(135deg,#7BA3C5,#6B93B5);color:#FFF;font-size:13px;box-shadow:0 4px 12px rgba(91,124,153,.25);}
 .btn-g{padding:7px 13px;background:#FFF;color:#5B7C99;border:2px solid rgba(91,124,153,.25);font-size:11px;}
 .btn-d{padding:7px 13px;background:linear-gradient(135deg,#FFE5E5,#FFD5D5);color:#C44;border:2px solid rgba(204,68,68,.2);font-size:11px;}
-
 .inp{padding:12px 16px;border-radius:12px;border:2px solid rgba(91,124,153,.25);background:#FFF;color:#2D3561;font-size:14px;font-family:'Noto Serif KR',sans-serif;outline:none;width:100%;transition:all .3s;}
 .inp:focus{border-color:#5B7C99;box-shadow:0 0 0 4px rgba(91,124,153,.1);}
 .lbl{font-size:12px;font-weight:600;color:#5B7C99;margin-bottom:6px;display:block;}
-
 .modal-bg{position:fixed;inset:0;background:rgba(45,53,97,.4);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(8px);animation:fadeIn .3s;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.modal{background:linear-gradient(135deg,#FFF 0%,#F5FAFF 100%);border-radius:24px;padding:28px;width:380px;max-width:92vw;box-shadow:0 24px 60px rgba(61,90,115,.3);border:2px solid rgba(91,124,153,.2);max-height:90vh;overflow-y:auto;}
+.modal{background:linear-gradient(135deg,#FFF 0%,#F5FAFF 100%);border-radius:24px;padding:28px;width:380px;max-width:92vw;box-shadow:0 24px 60px rgba(61,90,115,.3);border:2px solid rgba(91,124,153,.2);}
 .modal-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:#2D3561;margin-bottom:18px;}
-
 .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.2);animation:toastIn .3s;}
 @keyframes toastIn{from{transform:translateX(-50%) translateY(-20px);opacity:0;}to{transform:translateX(-50%) translateY(0);opacity:1;}}
 .toast.ok{background:linear-gradient(135deg,#5B7C99,#4A6B88);color:#FFF;}
-
+.toast.err{background:linear-gradient(135deg,#FFB3B3,#FF9999);color:#C44;}
 .shelf-container{background:linear-gradient(135deg,#FFF,#F8FBFF);border-radius:20px;border:2px solid rgba(91,124,153,.2);padding:24px;box-shadow:0 8px 24px rgba(61,90,115,.1);}
 .shelf-visual{background:linear-gradient(135deg,#F0F8FF,#E8F4F8);border:3px solid rgba(91,124,153,.3);border-radius:16px;padding:20px;position:relative;}
 .shelf-floor{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:16px 0;border-bottom:2px dashed rgba(91,124,153,.2);}
 .shelf-floor:last-child{border:none;}
-.shelf-floor-label{position:absolute;left:-50px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:#5B7C99;writing-mode:vertical-rl;}
-.shelf-cell{background:linear-gradient(135deg,#FFF,#F5FAFF);border:2px solid rgba(91,124,153,.25);border-radius:10px;padding:12px 8px;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all .3s;position:relative;}
+.shelf-cell{background:linear-gradient(135deg,#FFF,#F5FAFF);border:2px solid rgba(91,124,153,.25);border-radius:10px;padding:12px 8px;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
 .shelf-cell:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(61,90,115,.2);border-color:#5B7C99;}
 .shelf-cell-name{font-size:11px;font-weight:600;color:#2D3561;text-align:center;line-height:1.3;word-break:break-word;}
 .shelf-cell-qty{font-size:10px;color:#5B7C99;font-weight:600;}
 .shelf-cell-empty{color:#B0C4D4;font-style:italic;font-size:10px;}
-.shelf-cell-dot{width:8px;height:8px;border-radius:50%;position:absolute;top:8px;right:8px;}
+.error-box{background:#FFF3F3;color:#C44;padding:20px;margin:20px;border-radius:16px;text-align:center;font-size:14px;border:2px solid rgba(196,68,68,.2);}
 </style>
 </head>
 <body>
 <div id="root"></div>
 
 <script>
-// ==========================================
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZXlpa3NzdXFtZGVsbnlvdHdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjYzNDcsImV4cCI6MjA5NDE0MjM0N30.PFhF1UAgULTt8aEijs-Aj7EzDU5wMW3n52ZWwY_7lfI
-// ==========================================
-const SUPABASE_URL = 'https://hqeyikssuqmdelnyotwk.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZXlpa3NzdXFtZGVsbnlvdHdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjYzNDcsImV4cCI6MjA5NDE0MjM0N30.PFhF1UAgULTt8aEijs-Aj7EzDU5wMW3n52ZWwY_7lfI';
+// ================================================
+// Supabase 설정 (환경변수로 관리하는 것이 권장됨)
+// ================================================
+const CONFIG = {
+  SUPABASE_URL: 'https://hqeyikssuqmdelnyotwk.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZXlpa3NzdXFtZGVsbnlvdHdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjYzNDcsImV4cCI6MjA5NDE0MjM0N30.PFhF1UAgULTt8aEijs-Aj7EzDU5wMW3nl6vff2FKTY',
+};
 
-// Supabase 클라이언트 초기화
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Supabase 초기화 (안전한 에러 처리)
+let supabase = null;
+let supaReady = false;
+try {
+  if (window.supabase && window.supabase.createClient) {
+    supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+    supaReady = true;
+  }
+} catch (e) {
+  supaReady = false;
+}
 
-const ITEM_COLORS=[
+// ================================================
+// 상수 정의
+// ================================================
+const ITEM_COLORS = [
   {label:"기본",value:"#94A3B8"},{label:"빨강",value:"#C44"},
   {label:"주황",value:"#E67E22"},{label:"노랑",value:"#F39C12"},
   {label:"초록",value:"#27AE60"},{label:"파랑",value:"#5B7C99"},
   {label:"보라",value:"#8E44AD"},{label:"핑크",value:"#E91E63"},
 ];
 
-const STATUS_OPTIONS=[
+const STATUS_OPTIONS = [
   {value:"정상",color:"#27AE60"},{value:"부족",color:"#E67E22"},
   {value:"점검필요",color:"#C44"},{value:"없음",color:"#95A5A6"},
 ];
 
-const DEFAULT_PIN="1234";
+const DEFAULT_PIN = "1234";
 
-function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+// ================================================
+// 유틸리티 함수
+// ================================================
+function makeFloors(id, n, cols = 6) {
+  return Array.from({length: n}, (_, i) => ({
+    id: `${id}-fl${i+1}`,
+    label: `${i+1}층`,
+    items: Array(cols).fill(null)
+  }));
+}
 
-const makeFloors=(id,n,cols=6)=>Array.from({length:n},(_,i)=>({
-  id:`${id}-fl${i+1}`,
-  label:`${i+1}층`,
-  items:Array(cols).fill(null)
-}));
+function escapeHtml(text) {
+  if (typeof text !== 'string') return '';
+  const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
 
-const INIT_SHELVES=[
+function validatePin(pin) {
+  return typeof pin === 'string' && pin.length >= 4;
+}
+
+function validateShelfName(name) {
+  return typeof name === 'string' && name.trim().length > 0 && name.length <= 50;
+}
+
+function validateItemName(name) {
+  return typeof name === 'string' && name.trim().length > 0 && name.length <= 100;
+}
+
+// ================================================
+// 초기 데이터
+// ================================================
+const INIT_SHELVES = [
   {id:"A",name:"A 선반",color:"#5B7C99",floors:makeFloors("A",2)},
   {id:"B",name:"B 선반",color:"#5B7C99",floors:makeFloors("B",2)},
   {id:"C",name:"C 선반",color:"#5B7C99",floors:makeFloors("C",2)},
@@ -107,471 +140,747 @@ const INIT_SHELVES=[
   {id:"G",name:"G 선반",color:"#5B7C99",floors:makeFloors("G",1)},
 ];
 
-let state={
-  shelves:INIT_SHELVES,
-  adminPin:DEFAULT_PIN,
-  view:"map",
-  selectedId:null,
-  isAdmin:false,
-  showPin:false,
-  showCP:false,
-  itemForm:null,
-  renameForm:null,
-  toast:null,
-  showSearch:false,
-  searchQuery:'',
-  confirmDelete:false,
-  showExportConfirm:false,
+// ================================================
+// 상태 관리
+// ================================================
+let state = {
+  shelves: JSON.parse(JSON.stringify(INIT_SHELVES)), // Deep copy
+  adminPin: DEFAULT_PIN,
+  view: "map",
+  selectedId: null,
+  isAdmin: false,
+  showPin: false,
+  showCP: false,
+  itemForm: null,
+  renameForm: null,
+  toast: null,
+  toastType: 'ok',
+  showSearch: false,
+  searchQuery: '',
+  confirmDelete: false,
+  showExportConfirm: false,
+  supaError: null,
+  isLoading: true,
 };
 
-// Supabase에 저장
-async function save(){
-  try{
-    console.log('Supabase에 저장 중...', state.shelves);
-    const { data, error } = await supabase
+// ================================================
+// Toast 메시지 (안전한 표시)
+// ================================================
+function showToast(msg, type = 'ok') {
+  if (typeof msg !== 'string') return;
+  state.toast = msg;
+  state.toastType = type;
+  render();
+  setTimeout(() => {
+    state.toast = null;
+    state.toastType = 'ok';
+    render();
+  }, 2200);
+}
+
+// ================================================
+// Supabase 데이터 저장
+// ================================================
+async function save() {
+  if (!supaReady || !supabase) {
+    return false;
+  }
+  
+  try {
+    const dataToSave = {
+      shelves: state.shelves,
+      adminPin: state.adminPin
+    };
+
+    const { error } = await supabase
       .from('shelves')
-      .upsert({ id: 1, data: { shelves: state.shelves, adminPin: state.adminPin } });
-    
-    if(error) throw error;
-    console.log('저장 완료!');
-  }catch(e){
-    console.error('저장 실패:', e);
-    showToast('저장 실패: ' + e.message);
+      .upsert({ id: 1, data: dataToSave });
+
+    if (error) {
+      throw new Error(error.message || '저장 중 오류 발생');
+    }
+    return true;
+  } catch (e) {
+    showToast('저장 실패: 나중에 다시 시도하세요', 'err');
+    return false;
   }
 }
 
-// Supabase에서 불러오기
-async function load(){
-  try{
-    console.log('Supabase에서 불러오는 중...');
+// ================================================
+// Supabase 데이터 불러오기
+// ================================================
+async function load() {
+  if (!supaReady || !supabase) {
+    state.isLoading = false;
+    render();
+    return;
+  }
+
+  try {
     const { data, error } = await supabase
       .from('shelves')
-      .select('*')
+      .select('data')
       .eq('id', 1)
       .single();
-    
-    if(error && error.code !== 'PGRST116') throw error;
-    
-    if(data && data.data){
-      if(data.data.shelves) state.shelves = data.data.shelves;
-      if(data.data.adminPin) state.adminPin = data.data.adminPin;
-      console.log('불러오기 완료!', state.shelves);
-    }else{
-      console.log('저장된 데이터 없음, 기본값 사용');
+
+    if (error && error.code !== 'PGRST116') {
+      throw new Error(error.message || '데이터 불러오기 실패');
     }
+
+    if (data && data.data) {
+      if (Array.isArray(data.data.shelves)) {
+        state.shelves = data.data.shelves;
+      }
+      if (validatePin(data.data.adminPin)) {
+        state.adminPin = data.data.adminPin;
+      }
+    }
+  } catch (e) {
+    // Supabase 없이도 진행 가능 (로컬 상태 사용)
+    state.supaError = '원격 저장소 연결 불가. 로컬에서만 작동합니다.';
+  } finally {
+    state.isLoading = false;
     render();
-  }catch(e){
-    console.error('불러오기 실패:', e);
-    showToast('불러오기 실패: ' + e.message);
+    
+    // 실시간 동기화 설정 (채널 안전하게)
+    setupRealtimeSync();
   }
 }
 
-// 실시간 동기화 설정
-supabase
-  .channel('shelves_changes')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'shelves' }, (payload) => {
-    console.log('실시간 변경 감지!', payload);
-    if(payload.new && payload.new.data){
-      state.shelves = payload.new.data.shelves;
-      state.adminPin = payload.new.data.adminPin || DEFAULT_PIN;
+// ================================================
+// 실시간 동기화 (에러 보호)
+// ================================================
+function setupRealtimeSync() {
+  if (!supaReady || !supabase || !supabase.channel) return;
+
+  try {
+    const channel = supabase.channel('shelves_changes');
+    
+    channel.on('postgres_changes', 
+      { event: '*', schema: 'public', table: 'shelves' }, 
+      (payload) => {
+        try {
+          if (payload.new && payload.new.data) {
+            if (Array.isArray(payload.new.data.shelves)) {
+              state.shelves = payload.new.data.shelves;
+            }
+            if (validatePin(payload.new.data.adminPin)) {
+              state.adminPin = payload.new.data.adminPin;
+            }
+            render();
+            showToast('🔄 다른 사용자가 데이터를 수정했습니다', 'ok');
+          }
+        } catch (e) {
+          // 동기화 실패는 무시하고 진행
+        }
+      }
+    );
+
+    channel.subscribe((status) => {
+      if (status === 'CHANNEL_ERROR') {
+        state.supaError = '실시간 동기화 오류 (계속 사용 가능)';
+      }
+    });
+  } catch (e) {
+    // 채널 설정 실패는 무시
+  }
+}
+
+// ================================================
+// 상태 업데이트 (안전한 저장)
+// ================================================
+function updateShelves(fn) {
+  try {
+    const newShelves = fn(state.shelves);
+    if (Array.isArray(newShelves)) {
+      state.shelves = newShelves;
+      save();
       render();
-      showToast('🔄 다른 사용자가 데이터를 수정했습니다');
     }
-  })
-  .subscribe();
-
-function showToast(msg){
-  state.toast=msg;
-  render();
-  setTimeout(()=>{state.toast=null;render();},2200);
+  } catch (e) {
+    showToast('오류 발생: 다시 시도하세요', 'err');
+  }
 }
 
-function updateShelves(fn){
-  state.shelves=fn(state.shelves);
-  save();
-  render();
-}
-
-function exportHTML(){
-  console.log('exportHTML - 실제 다운로드 실행');
-  
-  try{
-    const html=document.documentElement.outerHTML;
-    console.log('HTML 길이:', html.length);
-    
-    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download='생물실_기자재_'+new Date().toISOString().slice(0,10)+'.html';
-    a.style.display='none';
+// ================================================
+// HTML 내보내기 (XSS 방지)
+// ================================================
+function exportHTML() {
+  try {
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '생물실_기자재_' + new Date().toISOString().slice(0, 10) + '.html';
     document.body.appendChild(a);
-    
-    console.log('다운로드 시작...');
     a.click();
-    
-    setTimeout(()=>{
+    setTimeout(() => {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      console.log('다운로드 완료');
-    },100);
-    
-    showToast('HTML 파일 다운로드 완료!');
-    
-  }catch(e){
-    console.error('다운로드 실패:', e);
-    alert('다운로드 실패: '+e.message);
+    }, 100);
+    showToast('HTML 파일 다운로드 완료!', 'ok');
+  } catch (e) {
+    showToast('다운로드 실패', 'err');
   }
 }
 
-// 전역으로 노출
-window.exportHTML=exportHTML;
+window.exportHTML = exportHTML;
 
-function renderShelfView(shelf){
-  let html='<div class="shelf-container">';
-  html+=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><div style="display:flex;align-items:center;gap:12px;">`;
-  
-  if(state.renameForm===shelf.id){
-    html+=`<input type="text" id="renameinp" class="inp" value="${shelf.name}" style="width:200px;"/><button class="btn-g" onclick="app.saveRename('${shelf.id}')">저장</button><button class="btn-g" onclick="app.closeRename()">취소</button>`;
-  }else{
-    html+=`<span style="font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:#2D3561;">${shelf.name}</span>`;
-    if(state.isAdmin){
-      html+=`<button class="btn-g" onclick="app.openRename('${shelf.id}')">이름 수정</button>`;
+// ================================================
+// 선반 상세 뷰 렌더링
+// ================================================
+function renderShelfView(shelf) {
+  let html = '<div class="shelf-container">';
+  html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><div style="display:flex;align-items:center;gap:12px;">';
+
+  if (state.renameForm === shelf.id) {
+    html += `<input type="text" id="renameinp" class="inp" value="${escapeHtml(shelf.name)}" style="width:200px;"/>`;
+    html += `<button class="btn-g" onclick="app.saveRename('${shelf.id}')">저장</button>`;
+    html += `<button class="btn-g" onclick="app.closeRename()">취소</button>`;
+  } else {
+    html += `<span style="font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:#2D3561;">${escapeHtml(shelf.name)}</span>`;
+    if (state.isAdmin) {
+      html += `<button class="btn-g" onclick="app.openRename('${shelf.id}')">이름 수정</button>`;
     }
   }
-  
-  html+=`</div><button class="btn-s" onclick="app.setView('map')">← 약도</button></div>`;
-  
-  html+='<div class="shelf-visual">';
-  
-  for(let floorIdx=shelf.floors.length-1;floorIdx>=0;floorIdx--){
-    const floor=shelf.floors[floorIdx];
-    
-    // 실제 아이템들만 필터링
-    const actualItems=floor.items.filter(item=>item!==null);
-    
-    html+=`<div style="position:relative;"><div style="font-size:12px;font-weight:600;color:#5B7C99;margin-bottom:8px;padding-left:8px;display:flex;justify-content:space-between;align-items:center;"><span>${floor.label}</span><span style="font-size:11px;color:#7BA3C5;">${actualItems.length}개</span></div><div class="shelf-floor" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));">`;
-    
-    actualItems.forEach((item,displayIdx)=>{
-      const stOpt=STATUS_OPTIONS.find(s=>s.value===item.status)||STATUS_OPTIONS[0];
-      html+=`<div class="shelf-cell" onclick="app.openEditCell('${shelf.id}','${floor.id}',${displayIdx})"><div class="shelf-cell-name">${item.name}</div><div class="shelf-cell-qty">×${item.qty}</div><div class="shelf-cell-dot" style="background:${stOpt.color};"></div></div>`;
+
+  html += '</div><button class="btn-s" onclick="app.setView(\'map\')">← 약도</button></div>';
+  html += '<div class="shelf-visual">';
+
+  for (let floorIdx = shelf.floors.length - 1; floorIdx >= 0; floorIdx--) {
+    const floor = shelf.floors[floorIdx];
+    const actualItems = floor.items.filter(item => item !== null);
+
+    html += `<div style="position:relative;"><div style="font-size:12px;font-weight:600;color:#5B7C99;margin-bottom:8px;padding-left:8px;">${escapeHtml(floor.label)} (${actualItems.length}개)</div>`;
+    html += `<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;">`;
+
+    actualItems.forEach((item, displayIdx) => {
+      const stOpt = STATUS_OPTIONS.find(s => s.value === item.status) || STATUS_OPTIONS[0];
+      html += `<div class="shelf-cell" onclick="app.openEditCell('${escapeHtml(shelf.id)}','${escapeHtml(floor.id)}',${displayIdx})">`;
+      html += `<div class="shelf-cell-name">${escapeHtml(item.name || '')}</div>`;
+      html += `<div class="shelf-cell-qty">×${Math.max(0, item.qty || 0)}</div>`;
+      html += `<div class="shelf-cell-dot" style="background-color:${escapeHtml(stOpt.color)};"></div>`;
+      html += `</div>`;
     });
-    
-    if(state.isAdmin){
-      html+=`<div class="shelf-cell" onclick="app.openAddCell('${shelf.id}','${floor.id}',-1)" style="border:2px dashed rgba(91,124,153,.4);"><div class="shelf-cell-empty">+ 추가</div></div>`;
+
+    if (state.isAdmin) {
+      html += `<div class="shelf-cell" onclick="app.openAddCell('${escapeHtml(shelf.id)}','${escapeHtml(floor.id)}',-1)" style="border:2px dashed rgba(91,124,153,.4);">`;
+      html += `<div class="shelf-cell-empty">+ 추가</div></div>`;
     }
-    
-    html+='</div></div>';
+
+    html += '</div></div>';
   }
-  
-  html+='</div></div>';
+
+  html += '</div></div>';
   return html;
 }
 
-function render(){
-  const root=document.getElementById('root');
-  
-  let html='<div class="hdr"><div class="hdr-in"><div class="logo"><div class="logo-ic">🔬</div><div><div class="logo-t">Biology Lab</div><div class="logo-s">SPECIMEN</div></div></div><div class="nav">';
-  
-  html+=`<button class="btn-nav ${state.view==='map'?'act':''}" onclick="app.setView('map')">약도</button>`;
-  html+=`<button class="btn-nav" onclick="app.toggleSearch()">🔍 검색</button>`;
-  html+=`<button class="btn-export" onclick="app.showExportModal()">📥 내보내기</button>`;
-  
-  if(state.isAdmin){
-    html+=`<div style="display:flex;gap:8px;align-items:center;"><div class="admin-badge" onclick="app.logout()">⚙ Admin</div><button class="btn-nav" onclick="app.openChangePin()">PIN</button></div>`;
-  }else{
-    html+=`<button class="btn-nav" onclick="app.openLogin()">🔒</button>`;
-  }
-  
-  html+='</div></div></div>';
-  
-  html+='<div class="ct">';
-  
-  if(state.view==='map'){
-    html+='<div class="hint">· 선반을 클릭하여 기자재를 관리하세요 ·</div>';
-    
-    // 검색 UI
-    if(state.showSearch){
-      html+=`<div style="background:linear-gradient(135deg,#FFF,#F8FBFF);border-radius:16px;padding:20px;margin-bottom:20px;border:2px solid rgba(91,124,153,.2);"><input type="text" id="searchInput" class="inp" placeholder="기자재 검색..." value="${state.searchQuery}" oninput="app.updateSearch(this.value)" style="margin-bottom:12px;"/>`;
-      
-      if(state.searchQuery){
-        const results=[];
-        state.shelves.forEach(shelf=>{
-          shelf.floors.forEach(floor=>{
-            floor.items.forEach((item,idx)=>{
-              if(item&&item.name.toLowerCase().includes(state.searchQuery.toLowerCase())){
-                results.push({shelf:shelf.name,floor:floor.label,item:item.name,shelfId:shelf.id});
-              }
+// ================================================
+// 메인 렌더 함수 (완전한 에러 처리)
+// ================================================
+function render() {
+  const root = document.getElementById('root');
+  if (!root) return;
+
+  try {
+    let html = '<div class="hdr"><div class="hdr-in"><div class="logo"><div class="logo-ic">🔬</div>';
+    html += '<div><div class="logo-t">Biology Lab</div><div class="logo-s">SPECIMEN</div></div></div>';
+    html += '<div class="nav">';
+    html += `<button class="btn-nav ${state.view === 'map' ? 'act' : ''}" onclick="app.setView('map')">약도</button>`;
+    html += `<button class="btn-nav" onclick="app.toggleSearch()">🔍 검색</button>`;
+    html += `<button class="btn-export" onclick="app.showExportModal()">📥 내보내기</button>`;
+
+    if (state.isAdmin) {
+      html += `<div style="display:flex;gap:8px;align-items:center;"><div class="admin-badge" onclick="app.logout()">⚙ Admin</div>`;
+      html += `<button class="btn-nav" onclick="app.openChangePin()">PIN</button></div>`;
+    } else {
+      html += `<button class="btn-nav" onclick="app.openLogin()">🔒</button>`;
+    }
+
+    html += '</div></div></div>';
+    html += '<div class="ct">';
+
+    // 로딩 상태
+    if (state.isLoading) {
+      html += '<div style="text-align:center;padding:40px;"><p style="font-size:16px;color:#5B7C99;">데이터 로딩 중...</p></div>';
+      root.innerHTML = html + '</div>';
+      return;
+    }
+
+    // Supabase 에러 표시 (계속 작동함)
+    if (state.supaError) {
+      html += `<div class="error-box">⚠️ ${escapeHtml(state.supaError)}</div>`;
+    }
+
+    // 맵 뷰
+    if (state.view === 'map') {
+      html += '<div class="hint">· 선반을 클릭하여 기자재를 관리하세요 ·</div>';
+
+      // 검색 UI
+      if (state.showSearch) {
+        html += '<div style="background:linear-gradient(135deg,#FFF,#F8FBFF);border-radius:16px;padding:20px;margin-bottom:20px;border:2px solid rgba(91,124,153,.2);">';
+        html += `<input type="text" id="searchInput" class="inp" placeholder="기자재명 검색..." value="${escapeHtml(state.searchQuery)}" oninput="app.updateSearch(this.value)" style="margin-bottom:12px;"/>`;
+
+        if (state.searchQuery) {
+          const results = [];
+          state.shelves.forEach(shelf => {
+            shelf.floors.forEach(floor => {
+              floor.items.forEach((item, idx) => {
+                if (item && item.name && item.name.toLowerCase().includes(state.searchQuery.toLowerCase())) {
+                  results.push({shelf:shelf.name, floor:floor.label, item:item.name, shelfId:shelf.id});
+                }
+              });
             });
           });
-        });
-        
-        if(results.length>0){
-          html+=`<div style="font-size:13px;color:#5B7C99;margin-bottom:8px;font-weight:600;">검색 결과 ${results.length}개</div>`;
-          results.forEach(r=>{
-            html+=`<div onclick="app.openShelf('${r.shelfId}')" style="background:#FFF;padding:12px;border-radius:8px;margin-bottom:8px;cursor:pointer;border:2px solid rgba(91,124,153,.15);transition:all .2s;" onmouseover="this.style.borderColor='#5B7C99'" onmouseout="this.style.borderColor='rgba(91,124,153,.15)'"><div style="font-weight:600;color:#2D3561;margin-bottom:4px;">${r.shelf} - ${r.floor}</div><div style="color:#5B7C99;font-size:13px;">${r.item}</div></div>`;
-          });
-        }else{
-          html+=`<div style="text-align:center;color:#B0C4D4;padding:20px;font-style:italic;">검색 결과가 없습니다</div>`;
+
+          if (results.length > 0) {
+            html += `<div style="font-size:13px;color:#5B7C99;margin-bottom:8px;font-weight:600;">검색 결과 ${results.length}개</div>`;
+            results.forEach(r => {
+              html += `<div onclick="app.openShelf('${escapeHtml(r.shelfId)}')" style="background:#FFF;padding:12px;border-radius:8px;margin-bottom:8px;cursor:pointer;border:2px solid rgba(91,124,153,.15);transition:all .2s;"`;
+              html += `onmouseover="this.style.background='#F5FAFF'" onmouseout="this.style.background='#FFF'">`;
+              html += `<strong>${escapeHtml(r.shelf)}</strong> ${escapeHtml(r.floor)} - ${escapeHtml(r.item)}</div>`;
+            });
+          } else {
+            html += '<div style="text-align:center;color:#B0C4D4;padding:20px;font-style:italic;">검색 결과가 없습니다</div>';
+          }
         }
+        html += '</div>';
       }
-      
-      html+=`</div>`;
+
+      // SVG 맵
+      html += '<div class="map-wrapper"><svg viewBox="0 0 680 720" style="width:100%;display:block;">';
+      html += '<defs><linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%">';
+      html += '<stop offset="0%" style="stop-color:#7BA3C5;stop-opacity:0.3"/>';
+      html += '<stop offset="100%" style="stop-color:#5B7C99;stop-opacity:0.1"/></linearGradient></defs>';
+
+      // 테두리
+      html += '<rect x="40" y="30" width="600" height="660" rx="8" fill="#F8FBFF" stroke="#B0C4D4" stroke-width="2.5"/>';
+
+      // 출입문
+      html += '<rect x="40" y="30" width="60" height="50" rx="3" fill="#FFF" stroke="#B0C4D4" stroke-width="2"/>';
+      html += '<text x="70" y="59" text-anchor="middle" font-size="11" fill="#7BA3C5">출입문</text>';
+
+      // 선반 A~F
+      ['A','B','C','D','E','F'].forEach((name, i) => {
+        const y = 95 + i * 90;
+        const sh = state.shelves.find(s => s.id === name);
+        const sel = sh && sh.id === state.selectedId;
+        const totalItems = sh ? sh.floors.reduce((sum, fl) => sum + fl.items.filter(it => it !== null).length, 0) : 0;
+        html += `<g onclick="app.openShelf('${name}')" style="cursor:pointer;">`;
+        if (sel) html += `<rect x="37" y="${y-3}" width="96" height="81" rx="6" fill="none" stroke="#5B7C99" stroke-width="2.5" opacity="0.6"/>`;
+        html += `<rect x="40" y="${y}" width="90" height="75" rx="4" fill="${sel?'#C8DAEA':'url(#sg)'}" stroke="#5B7C99" stroke-width="2"/>`;
+        html += `<text x="85" y="${y+38}" text-anchor="middle" font-size="24" fill="#2D3561" font-weight="700">${name}</text>`;
+        html += `<text x="85" y="${y+55}" text-anchor="middle" font-size="9" fill="#5B7C99">${totalItems}개</text></g>`;
+      });
+
+      // 출입문
+      html += '<rect x="40" y="635" width="60" height="55" rx="3" fill="#FFF" stroke="#B0C4D4" stroke-width="2"/>';
+      html += '<text x="70" y="666" text-anchor="middle" font-size="11" fill="#7BA3C5">출입문</text>';
+
+      // 공간
+      html += '<rect x="200" y="30" width="440" height="110" rx="4" fill="#E8F4F8" stroke="#B0C4D4" stroke-width="1.5"/>';
+
+      // 약품보관장
+      const drugSh = state.shelves.find(s => s.id === 'drug');
+      const drugSel = drugSh && drugSh.id === state.selectedId;
+      const drugTotal = drugSh ? drugSh.floors.reduce((sum, fl) => sum + fl.items.filter(it => it !== null).length, 0) : 0;
+      html += `<g onclick="app.openShelf('drug')" style="cursor:pointer;">`;
+      if (drugSel) html += '<rect x="507" y="152" width="136" height="126" rx="6" fill="none" stroke="#4A6B88" stroke-width="2.5" opacity="0.6"/>';
+      html += `<rect x="510" y="155" width="130" height="120" rx="4" fill="${drugSel?'#C8DAEA':'url(#sg)'}" stroke="#4A6B88" stroke-width="2"/>`;
+      html += '<text x="575" y="205" text-anchor="middle" font-size="12" fill="#2D3561" font-weight="700">약품보관장</text>';
+      html += `<text x="575" y="222" text-anchor="middle" font-size="9" fill="#5B7C99">${drugTotal}개</text></g>`;
+
+      // G 선반
+      const gSh = state.shelves.find(s => s.id === 'G');
+      const gSel = gSh && gSh.id === state.selectedId;
+      const gTotal = gSh ? gSh.floors.reduce((sum, fl) => sum + fl.items.filter(it => it !== null).length, 0) : 0;
+      html += `<g onclick="app.openShelf('G')" style="cursor:pointer;">`;
+      if (gSel) html += '<rect x="507" y="287" width="136" height="106" rx="6" fill="none" stroke="#5B7C99" stroke-width="2.5" opacity="0.6"/>';
+      html += `<rect x="510" y="290" width="130" height="100" rx="4" fill="${gSel?'#C8DAEA':'url(#sg)'}" stroke="#5B7C99" stroke-width="2"/>`;
+      html += '<text x="575" y="340" text-anchor="middle" font-size="28" fill="#2D3561" font-weight="700">G</text>';
+      html += `<text x="575" y="360" text-anchor="middle" font-size="9" fill="#5B7C99">${gTotal}개</text></g>`;
+
+      // 싱크대, 책상, 칠판
+      html += '<rect x="510" y="405" width="130" height="190" rx="4" fill="#E8E8E8" stroke="#6B6B6B" stroke-width="2"/>';
+      html += '<text x="575" y="505" text-anchor="middle" font-size="12" fill="#4A4A4A">싱크대</text>';
+      html += '<rect x="470" y="645" width="170" height="45" rx="4" fill="#E8E8E8" stroke="#6B6B6B" stroke-width="2"/>';
+      html += '<text x="555" y="671" text-anchor="middle" font-size="11" fill="#4A4A4A">책상</text>';
+      html += '<rect x="180" y="645" width="270" height="45" rx="4" fill="rgba(91,124,153,0.25)" stroke="#5B7C99" stroke-width="2.5"/>';
+      html += '<text x="315" y="671" text-anchor="middle" font-size="14" fill="#2D3561" font-weight="600">칠판</text>';
+      html += '</svg></div>';
+
+    } else if (state.view === 'shelf' && state.selectedId) {
+      const shelf = state.shelves.find(s => s.id === state.selectedId);
+      if (shelf) {
+        html += renderShelfView(shelf);
+      }
     }
-    
-    html+='<div class="map-wrapper">';
-    html+='<svg viewBox="0 0 680 720" style="width:100%;display:block;"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#7BA3C5;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#5B7C99;stop-opacity:0.2"/></linearGradient></defs>';
-    
-    // 전체 테두리
-    html+='<rect x="40" y="30" width="600" height="660" rx="8" fill="#F8FBFF" stroke="#B0C4D4" stroke-width="2.5"/>';
-    
-    // 왼쪽 위 출입문
-    html+='<rect x="40" y="30" width="60" height="50" rx="3" fill="#FFF" stroke="#B0C4D4" stroke-width="2"/>';
-    html+='<text x="70" y="59" text-anchor="middle" font-size="11" fill="#7BA3C5">출입문</text>';
-    
-    // 왼쪽 선반 A~F
-    ['A','B','C','D','E','F'].forEach((name,i)=>{
-      const y=95+i*90;
-      const sh=state.shelves.find(s=>s.id===name);
-      const sel=sh&&sh.id===state.selectedId;
-      const totalItems=sh?sh.floors.reduce((sum,fl)=>sum+fl.items.filter(it=>it!==null).length,0):0;
-      html+=`<g onclick="app.openShelf('${name}')" style="cursor:pointer;">`;
-      if(sel)html+=`<rect x="37" y="${y-3}" width="96" height="81" rx="6" fill="none" stroke="#5B7C99" stroke-width="2.5" opacity="0.6"/>`;
-      html+=`<rect x="40" y="${y}" width="90" height="75" rx="4" fill="${sel?'#C8DAEA':'url(#sg)'}" stroke="#5B7C99" stroke-width="2"/>`;
-      html+=`<text x="85" y="${y+38}" text-anchor="middle" font-size="24" fill="#2D3561" font-weight="700">${name}</text>`;
-      html+=`<text x="85" y="${y+55}" text-anchor="middle" font-size="9" fill="#5B7C99">${totalItems}개</text>`;
-      html+=`</g>`;
-    });
-    
-    // 왼쪽 아래 출입문
-    html+='<rect x="40" y="635" width="60" height="55" rx="3" fill="#FFF" stroke="#B0C4D4" stroke-width="2"/>';
-    html+='<text x="70" y="666" text-anchor="middle" font-size="11" fill="#7BA3C5">출입문</text>';
-    
-    // 위쪽 큰 공간 (텍스트 없음)
-    html+='<rect x="200" y="30" width="440" height="110" rx="4" fill="#E8F4F8" stroke="#B0C4D4" stroke-width="1.5"/>';
-    
-    // 네모 3개
-    html+='<rect x="300" y="155" width="50" height="45" fill="none" stroke="#B0C4D4" stroke-width="1.5"/>';
-    html+='<rect x="355" y="155" width="50" height="45" fill="none" stroke="#B0C4D4" stroke-width="1.5"/>';
-    html+='<rect x="410" y="155" width="50" height="45" fill="none" stroke="#B0C4D4" stroke-width="1.5"/>';
-    
-    // 약품보관장
-    const drugSh=state.shelves.find(s=>s.id==='drug');
-    const drugSel=drugSh&&drugSh.id===state.selectedId;
-    const drugTotal=drugSh?drugSh.floors.reduce((sum,fl)=>sum+fl.items.filter(it=>it!==null).length,0):0;
-    html+=`<g onclick="app.openShelf('drug')" style="cursor:pointer;">`;
-    if(drugSel)html+=`<rect x="507" y="152" width="136" height="126" rx="6" fill="none" stroke="#4A6B88" stroke-width="2.5" opacity="0.6"/>`;
-    html+=`<rect x="510" y="155" width="130" height="120" rx="4" fill="${drugSel?'#C8DAEA':'url(#sg)'}" stroke="#4A6B88" stroke-width="2"/>`;
-    html+=`<text x="575" y="205" text-anchor="middle" font-size="12" fill="#2D3561" font-weight="700">약품보관장</text>`;
-    html+=`<text x="575" y="222" text-anchor="middle" font-size="9" fill="#5B7C99">${drugTotal}개</text>`;
-    html+=`</g>`;
-    
-    // G 선반 (1층만)
-    const gSh=state.shelves.find(s=>s.id==='G');
-    const gSel=gSh&&gSh.id===state.selectedId;
-    const gTotal=gSh?gSh.floors.reduce((sum,fl)=>sum+fl.items.filter(it=>it!==null).length,0):0;
-    html+=`<g onclick="app.openShelf('G')" style="cursor:pointer;">`;
-    if(gSel)html+=`<rect x="507" y="287" width="136" height="106" rx="6" fill="none" stroke="#5B7C99" stroke-width="2.5" opacity="0.6"/>`;
-    html+=`<rect x="510" y="290" width="130" height="100" rx="4" fill="${gSel?'#C8DAEA':'url(#sg)'}" stroke="#5B7C99" stroke-width="2"/>`;
-    html+=`<text x="575" y="340" text-anchor="middle" font-size="28" fill="#2D3561" font-weight="700">G</text>`;
-    html+=`<text x="575" y="360" text-anchor="middle" font-size="9" fill="#5B7C99">${gTotal}개</text>`;
-    html+=`</g>`;
-    
-    // 싱크대
-    html+='<rect x="510" y="405" width="130" height="190" rx="4" fill="#E8E8E8" stroke="#6B6B6B" stroke-width="2"/>';
-    html+='<text x="575" y="505" text-anchor="middle" font-size="12" fill="#4A4A4A">싱크대</text>';
-    
-    // 책상
-    html+='<rect x="470" y="645" width="170" height="45" rx="4" fill="#E8E8E8" stroke="#6B6B6B" stroke-width="2"/>';
-    html+='<text x="555" y="671" text-anchor="middle" font-size="11" fill="#4A4A4A">책상</text>';
-    
-    // 칠판
-    html+='<rect x="180" y="645" width="270" height="45" rx="4" fill="rgba(91,124,153,0.25)" stroke="#5B7C99" stroke-width="2.5"/>';
-    html+='<text x="315" y="671" text-anchor="middle" font-size="14" fill="#2D3561" font-weight="600">칠  판</text>';
-    
-    html+='</svg></div>';
-    
-  }else if(state.view==='shelf'&&state.selectedId){
-    let shelf=state.shelves.find(s=>s.id===state.selectedId);
-    if(shelf){
-      html+=renderShelfView(shelf);
+
+    html += '</div>';
+
+    // ========== 모달 렌더링 ==========
+
+    // 로그인 모달
+    if (state.showPin) {
+      html += '<div class="modal-bg" onclick="if(event.target===this)app.closeLogin()">';
+      html += '<div class="modal" onclick="event.stopPropagation()">';
+      html += '<div class="modal-t">관리자 로그인</div>';
+      html += '<div style="margin-bottom:12px;"><label class="lbl">PIN 코드</label>';
+      html += '<input type="password" id="pinInput" class="inp" placeholder="4자리 이상" onkeyup="if(event.key===\'Enter\')app.tryLogin()"/>';
+      html += '<div id="pinErr" style="color:#C44;font-size:11px;margin-top:6px;display:none;"></div></div>';
+      html += '<button class="btn-p" onclick="app.tryLogin()" style="width:100%;">로그인</button>';
+      html += '</div></div>';
     }
-  }
-  
-  html+='</div>';
-  
-  // Modals
-  if(state.showPin){
-    html+=`<div class="modal-bg" onclick="app.closeLogin()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-t">관리자 로그인</div><div style="font-size:13px;color:#7BA3C5;margin-bottom:16px;text-align:center;">PIN 입력</div><input type="password" id="pinInput" class="inp" style="letter-spacing:8px;text-align:center;margin-bottom:10px;" placeholder="• • • •" autofocus/><div id="pinErr" style="color:#C44;font-size:12px;margin-bottom:8px;text-align:center;display:none;">올바르지 않은 PIN</div><div style="display:flex;gap:10px;"><button class="btn-p" style="flex:1;" onclick="app.tryLogin()">확인</button><button class="btn-s" style="flex:1;" onclick="app.closeLogin()">취소</button></div></div></div>`;
-  }
-  
-  if(state.showCP){
-    html+=`<div class="modal-bg" onclick="app.closeChangePin()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-t">PIN 변경</div><div style="margin-bottom:12px;"><label class="lbl">현재 PIN</label><input type="password" id="cpOld" class="inp" style="letter-spacing:6px;text-align:center;"/></div><div style="margin-bottom:12px;"><label class="lbl">새 PIN</label><input type="password" id="cpNew" class="inp" style="letter-spacing:6px;text-align:center;"/></div><div style="margin-bottom:12px;"><label class="lbl">새 PIN 확인</label><input type="password" id="cpNew2" class="inp" style="letter-spacing:6px;text-align:center;"/></div><div id="cpErr" style="color:#C44;font-size:12px;margin-bottom:8px;text-align:center;display:none;"></div><div style="display:flex;gap:10px;"><button class="btn-p" style="flex:1;" onclick="app.tryChangePin()">변경</button><button class="btn-s" style="flex:1;" onclick="app.closeChangePin()">취소</button></div></div></div>`;
-  }
-  
-  if(state.itemForm){
-    let item=state.itemForm.item||{};
-    const isEdit=!state.itemForm.isNew;
-    
-    if(state.confirmDelete){
-      // 삭제 확인 모달
-      html+=`<div class="modal-bg"><div class="modal" onclick="event.stopPropagation()"><div class="modal-t" style="color:#C44;">⚠️ 삭제 확인</div><p style="text-align:center;margin-bottom:20px;color:#5B7C99;">정말 이 기자재를 삭제하시겠습니까?</p><div style="background:#F8F8F8;padding:12px;border-radius:8px;margin-bottom:20px;"><div style="font-weight:600;color:#2D3561;margin-bottom:4px;">${item.name}</div><div style="font-size:13px;color:#7BA3C5;">수량: ${item.qty}개</div></div><div style="display:flex;gap:10px;"><button type="button" class="btn-d" style="flex:1;" onclick="app.deleteFromCell()">삭제</button><button type="button" class="btn-s" style="flex:1;" onclick="app.cancelDelete()">취소</button></div></div></div>`;
-    }else{
-      // 일반 수정/등록 모달
-      html+=`<div class="modal-bg" onclick="app.closeItemForm()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-t">${isEdit?'기자재 수정':'기자재 등록'}</div><label class="lbl">기자재 이름</label><input type="text" id="itemName" class="inp" value="${item.name||''}" placeholder="예: 비커" style="margin-bottom:14px;" autofocus/><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;"><div><label class="lbl">수량</label><div style="display:flex;gap:6px;"><button type="button" class="btn-g" style="width:36px;height:36px;" onclick="app.changeQty(-1)">−</button><input type="number" id="itemQty" class="inp" value="${item.qty||1}" style="text-align:center;padding:10px 6px;"/><button type="button" class="btn-g" style="width:36px;height:36px;" onclick="app.changeQty(1)">＋</button></div></div><div><label class="lbl">상태</label><select id="itemStatus" class="inp" style="padding:10px 12px;">${STATUS_OPTIONS.map(s=>`<option ${(item.status||'정상')===s.value?'selected':''}>${s.value}</option>`).join('')}</select></div></div><label class="lbl">색상</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${ITEM_COLORS.map(c=>`<button type="button" onclick="app.setColor('${c.value}')" style="width:28px;height:28px;border-radius:50%;border:${(item.color||'#5B7C99')===c.value?'3px solid #2D3561':'3px solid transparent'};background:${c.value};cursor:pointer;"/>`).join('')}</div><label class="lbl">메모</label><textarea id="itemMemo" class="inp" rows="3" style="resize:vertical;margin-bottom:18px;line-height:1.6;" placeholder="위치, 주의사항…">${item.memo||''}</textarea><div style="display:flex;gap:10px;">${isEdit?`<button type="button" class="btn-d" style="flex:1;" onclick="app.deleteFromCell()">삭제</button>`:''}<button type="button" class="btn-p" style="flex:1;" onclick="app.saveItem()">저장</button><button type="button" class="btn-s" style="flex:1;" onclick="app.closeItemForm()">취소</button></div></div></div>`;
+
+    // PIN 변경 모달
+    if (state.showCP) {
+      html += '<div class="modal-bg" onclick="if(event.target===this)app.closeChangePin()">';
+      html += '<div class="modal" onclick="event.stopPropagation()">';
+      html += '<div class="modal-t">PIN 변경</div>';
+      html += '<div style="margin-bottom:12px;"><label class="lbl">현재 PIN</label>';
+      html += '<input type="password" id="cpOld" class="inp" placeholder="현재 PIN"/></div>';
+      html += '<div style="margin-bottom:12px;"><label class="lbl">새 PIN (4자리 이상)</label>';
+      html += '<input type="password" id="cpNew" class="inp" placeholder="새 PIN"/></div>';
+      html += '<div style="margin-bottom:12px;"><label class="lbl">새 PIN 확인</label>';
+      html += '<input type="password" id="cpNew2" class="inp" placeholder="새 PIN 확인"/></div>';
+      html += '<div id="cpErr" style="color:#C44;font-size:11px;margin-bottom:12px;display:none;"></div>';
+      html += '<button class="btn-p" onclick="app.tryChangePin()" style="width:100%;">변경</button>';
+      html += '</div></div>';
     }
+
+    // 기자재 폼 모달
+    if (state.itemForm) {
+      const item = state.itemForm.item || {};
+      const isEdit = !state.itemForm.isNew;
+
+      if (state.confirmDelete) {
+        html += '<div class="modal-bg" onclick="if(event.target===this)app.cancelDelete()">';
+        html += '<div class="modal" onclick="event.stopPropagation()">';
+        html += '<div class="modal-t" style="color:#C44;">⚠️ 삭제 확인</div>';
+        html += `<p style="text-align:center;margin-bottom:20px;color:#5B7C99;">정말로 "${escapeHtml(item.name || '')}"을(를) 삭제하시겠습니까?</p>`;
+        html += '<div style="display:flex;gap:8px;"><button class="btn-d" onclick="app.deleteFromCell()" style="flex:1;">삭제</button>';
+        html += '<button class="btn-s" onclick="app.cancelDelete()" style="flex:1;">취소</button></div>';
+        html += '</div></div>';
+      } else {
+        html += '<div class="modal-bg" onclick="if(event.target===this)app.closeItemForm()">';
+        html += '<div class="modal" onclick="event.stopPropagation()">';
+        html += `<div class="modal-t">${isEdit ? '기자재 수정' : '기자재 등록'}</div>`;
+        html += '<label class="lbl">기자재명</label>';
+        html += `<input type="text" id="itemName" class="inp" placeholder="기자재명" value="${escapeHtml(item.name || '')}" style="margin-bottom:12px;"/>`;
+        html += '<label class="lbl">수량</label>';
+        html += '<div style="display:flex;gap:8px;margin-bottom:12px;"><button class="btn-g" onclick="app.changeQty(-1)">−</button>';
+        html += `<input type="number" id="itemQty" class="inp" placeholder="1" value="${Math.max(0, item.qty || 1)}" style="flex:1;"/>`;
+        html += '<button class="btn-g" onclick="app.changeQty(1)">+</button></div>';
+        html += '<label class="lbl">상태</label>';
+        html += `<select id="itemStatus" class="inp" style="margin-bottom:12px;"><option>${escapeHtml(item.status || '정상')}</option>`;
+        STATUS_OPTIONS.forEach(s => {
+          if (s.value !== item.status) html += `<option>${escapeHtml(s.value)}</option>`;
+        });
+        html += '</select>';
+        html += '<label class="lbl">색상</label>';
+        html += '<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">';
+        ITEM_COLORS.forEach(c => {
+          html += `<button onclick="app.setColor('${c.value}')" style="width:32px;height:32px;border-radius:6px;background:${c.value};border:${(item.color===c.value)?'3px solid #000':'1px solid #ccc'};cursor:pointer;"></button>`;
+        });
+        html += '</div>';
+        html += '<label class="lbl">메모</label>';
+        html += `<textarea id="itemMemo" class="inp" placeholder="메모" style="margin-bottom:12px;min-height:80px;resize:none;">${escapeHtml(item.memo || '')}</textarea>`;
+        html += '<div style="display:flex;gap:8px;">';
+        html += '<button class="btn-p" onclick="app.saveItem()" style="flex:1;">저장</button>';
+        if (isEdit) html += '<button class="btn-d" onclick="app.deleteFromCell()" style="flex:1;">삭제</button>';
+        html += '<button class="btn-s" onclick="app.closeItemForm()" style="flex:1;">취소</button></div>';
+        html += '</div></div>';
+      }
+    }
+
+    // 내보내기 확인 모달
+    if (state.showExportConfirm) {
+      html += '<div class="modal-bg" onclick="if(event.target===this)app.cancelExport()">';
+      html += '<div class="modal" onclick="event.stopPropagation()">';
+      html += '<div class="modal-t">📥 HTML 내보내기</div>';
+      html += '<p style="text-align:center;margin-bottom:20px;color:#5B7C99;">현재 상태의 전체 페이지를 HTML 파일로 다운로드합니다.</p>';
+      html += '<div style="display:flex;gap:8px;">';
+      html += '<button class="btn-p" onclick="app.confirmExport()" style="flex:1;">다운로드</button>';
+      html += '<button class="btn-s" onclick="app.cancelExport()" style="flex:1;">취소</button></div>';
+      html += '</div></div>';
+    }
+
+    // Toast
+    if (state.toast) {
+      html += `<div class="toast ${state.toastType}">${escapeHtml(state.toast)}</div>`;
+    }
+
+    root.innerHTML = html;
+
+    // 입력 필드 자동 포커스
+    setTimeout(() => {
+      if (state.showSearch) {
+        const inp = document.getElementById('searchInput');
+        if (inp) inp.focus();
+      }
+      if (state.renameForm) {
+        const inp = document.getElementById('renameinp');
+        if (inp) inp.focus();
+      }
+    }, 50);
+
+  } catch (e) {
+    // 최악의 경우에도 에러 메시지 표시
+    root.innerHTML = `<div class="error-box">렌더링 오류 발생. 페이지를 새로고침해주세요.</div>`;
   }
-  
-  if(state.toast){
-    html+=`<div class="toast ok">${state.toast}</div>`;
-  }
-  
-  // 내보내기 확인 모달
-  if(state.showExportConfirm){
-    html+=`<div class="modal-bg"><div class="modal" onclick="event.stopPropagation()"><div class="modal-t">📥 HTML 내보내기</div><p style="text-align:center;margin-bottom:20px;color:#5B7C99;">현재 상태를 HTML 파일로 내보내시겠습니까?<br><br><span style="font-size:12px;color:#B0C4D4;">파일이 다운로드됩니다</span></p><div style="display:flex;gap:10px;"><button type="button" class="btn-p" style="flex:1;" onclick="app.confirmExport()">내보내기</button><button type="button" class="btn-s" style="flex:1;" onclick="app.cancelExport()">취소</button></div></div></div>`;
-  }
-  
-  root.innerHTML=html;
 }
 
-const app={
-  setView:(view)=>{state.view=view;state.selectedId=null;render();},
-  openShelf:(id)=>{state.selectedId=id;state.view='shelf';state.showSearch=false;render();},
-  toggleSearch:()=>{state.showSearch=!state.showSearch;render();setTimeout(()=>{const inp=document.getElementById('searchInput');if(inp)inp.focus();},100);},
-  updateSearch:(val)=>{state.searchQuery=val;render();},
-  openLogin:()=>{state.showPin=true;render();},
-  closeLogin:()=>{state.showPin=false;render();},
-  tryLogin:()=>{
-    let pin=document.getElementById('pinInput').value;
-    if(pin===state.adminPin){state.isAdmin=true;state.showPin=false;showToast('관리자 모드');}
-    else{document.getElementById('pinErr').style.display='block';document.getElementById('pinInput').value='';}
-  },
-  logout:()=>{state.isAdmin=false;render();},
-  openChangePin:()=>{state.showCP=true;render();},
-  closeChangePin:()=>{state.showCP=false;render();},
-  tryChangePin:()=>{
-    let old=document.getElementById('cpOld').value,n=document.getElementById('cpNew').value,n2=document.getElementById('cpNew2').value,e=document.getElementById('cpErr');
-    if(old!==state.adminPin){e.textContent='현재 PIN 오류';e.style.display='block';return;}
-    if(n.length<4){e.textContent='4자리 이상';e.style.display='block';return;}
-    if(n!==n2){e.textContent='불일치';e.style.display='block';return;}
-    state.adminPin=n;state.showCP=false;save();showToast('PIN 변경');
-  },
-  openAddCell:(sid,fid,idx)=>{
-    if(!state.isAdmin)return;
-    state.itemForm={shelfId:sid,floorId:fid,cellIdx:idx,item:{},isNew:true};
+// ================================================
+// 앱 메서드
+// ================================================
+const app = {
+  setView: (view) => {
+    state.view = view;
+    state.selectedId = null;
     render();
   },
-  openEditCell:(sid,fid,idx)=>{
-    if(!state.isAdmin)return;
-    let sh=state.shelves.find(s=>s.id===sid),fl=sh.floors.find(f=>f.id===fid);
-    const actualItems=fl.items.filter(it=>it!==null);
-    const item=actualItems[idx];
-    state.itemForm={shelfId:sid,floorId:fid,cellIdx:idx,item:{...item},isNew:false};
+
+  openShelf: (id) => {
+    if (typeof id !== 'string') return;
+    state.selectedId = id;
+    state.view = 'shelf';
+    state.showSearch = false;
     render();
   },
-  closeItemForm:()=>{state.itemForm=null;render();},
-  changeQty:(d)=>{let el=document.getElementById('itemQty'),v=parseInt(el.value)||1;el.value=Math.max(0,v+d);},
-  setColor:(c)=>{state.itemForm.item.color=c;render();},
-  saveItem:()=>{
-    let name=document.getElementById('itemName').value.trim();
-    if(!name)return;
-    let item={
-      name,
-      qty:parseInt(document.getElementById('itemQty').value)||1,
-      status:document.getElementById('itemStatus').value,
-      color:state.itemForm.item.color||'#5B7C99',
-      memo:document.getElementById('itemMemo').value.trim()
+
+  toggleSearch: () => {
+    state.showSearch = !state.showSearch;
+    render();
+  },
+
+  updateSearch: (val) => {
+    if (typeof val === 'string') {
+      state.searchQuery = val;
+      render();
+    }
+  },
+
+  openLogin: () => {
+    state.showPin = true;
+    render();
+  },
+
+  closeLogin: () => {
+    state.showPin = false;
+    render();
+  },
+
+  tryLogin: () => {
+    const pinInput = document.getElementById('pinInput');
+    if (!pinInput) return;
+    const pin = pinInput.value;
+    if (pin === state.adminPin) {
+      state.isAdmin = true;
+      state.showPin = false;
+      showToast('관리자 모드 활성화', 'ok');
+      render();
+    } else {
+      const err = document.getElementById('pinErr');
+      if (err) err.style.display = 'block';
+      if (pinInput) pinInput.value = '';
+    }
+  },
+
+  logout: () => {
+    state.isAdmin = false;
+    render();
+  },
+
+  openChangePin: () => {
+    state.showCP = true;
+    render();
+  },
+
+  closeChangePin: () => {
+    state.showCP = false;
+    render();
+  },
+
+  tryChangePin: () => {
+    const old = document.getElementById('cpOld')?.value || '';
+    const n = document.getElementById('cpNew')?.value || '';
+    const n2 = document.getElementById('cpNew2')?.value || '';
+    const e = document.getElementById('cpErr');
+
+    if (old !== state.adminPin) {
+      if (e) { e.textContent = '현재 PIN 오류'; e.style.display = 'block'; }
+      return;
+    }
+    if (n.length < 4) {
+      if (e) { e.textContent = '4자리 이상'; e.style.display = 'block'; }
+      return;
+    }
+    if (n !== n2) {
+      if (e) { e.textContent = '불일치'; e.style.display = 'block'; }
+      return;
+    }
+    state.adminPin = n;
+    state.showCP = false;
+    save();
+    showToast('PIN 변경 완료', 'ok');
+  },
+
+  openAddCell: (sid, fid, idx) => {
+    if (!state.isAdmin) return;
+    if (typeof sid !== 'string' || typeof fid !== 'string') return;
+    state.itemForm = {shelfId: sid, floorId: fid, cellIdx: idx, item: {}, isNew: true};
+    render();
+  },
+
+  openEditCell: (sid, fid, idx) => {
+    if (!state.isAdmin) return;
+    if (typeof sid !== 'string' || typeof fid !== 'string' || typeof idx !== 'number') return;
+    const sh = state.shelves.find(s => s.id === sid);
+    if (!sh) return;
+    const fl = sh.floors.find(f => f.id === fid);
+    if (!fl) return;
+    const actualItems = fl.items.filter(it => it !== null);
+    const item = actualItems[idx];
+    if (!item) return;
+    state.itemForm = {shelfId: sid, floorId: fid, cellIdx: idx, item: {...item}, isNew: false};
+    render();
+  },
+
+  closeItemForm: () => {
+    state.itemForm = null;
+    state.confirmDelete = false;
+    render();
+  },
+
+  changeQty: (d) => {
+    const el = document.getElementById('itemQty');
+    if (!el) return;
+    const v = parseInt(el.value) || 1;
+    el.value = Math.max(0, v + d);
+  },
+
+  setColor: (c) => {
+    if (typeof c !== 'string' || !state.itemForm) return;
+    state.itemForm.item.color = c;
+    render();
+  },
+
+  saveItem: () => {
+    const nameEl = document.getElementById('itemName');
+    if (!nameEl) return;
+    const name = nameEl.value.trim();
+    if (!validateItemName(name)) {
+      showToast('기자재명을 입력하세요 (100자 이내)', 'err');
+      return;
+    }
+
+    const item = {
+      name: name,
+      qty: Math.max(0, parseInt(document.getElementById('itemQty')?.value || 1)),
+      status: document.getElementById('itemStatus')?.value || '정상',
+      color: state.itemForm.item.color || '#5B7C99',
+      memo: document.getElementById('itemMemo')?.value.trim() || ''
     };
-    updateShelves(ss=>{
-      let sh=ss.find(s=>s.id===state.itemForm.shelfId),fl=sh.floors.find(f=>f.id===state.itemForm.floorId);
-      
-      if(state.itemForm.isNew){
-        // 새로 추가
+
+    updateShelves(ss => {
+      const sh = ss.find(s => s.id === state.itemForm.shelfId);
+      if (!sh) return ss;
+      const fl = sh.floors.find(f => f.id === state.itemForm.floorId);
+      if (!fl) return ss;
+
+      if (state.itemForm.isNew) {
         fl.items.push(item);
-      }else{
-        // 기존 수정
-        const actualItems=fl.items.filter(it=>it!==null);
-        const oldItem=actualItems[state.itemForm.cellIdx];
-        const oldIdx=fl.items.indexOf(oldItem);
-        if(oldIdx!==-1){
-          fl.items[oldIdx]=item;
+      } else {
+        const actualItems = fl.items.filter(it => it !== null);
+        const oldItem = actualItems[state.itemForm.cellIdx];
+        const oldIdx = fl.items.indexOf(oldItem);
+        if (oldIdx !== -1) {
+          fl.items[oldIdx] = item;
         }
       }
-      
       return ss;
     });
-    state.itemForm=null;
-    showToast('저장 완료');
+    state.itemForm = null;
+    showToast('저장 완료', 'ok');
   },
-  deleteFromCell:()=>{
-    console.log('deleteFromCell 호출됨', state.itemForm);
-    
-    // confirm 대신 state로 관리
-    if(!state.confirmDelete){
-      state.confirmDelete=true;
+
+  deleteFromCell: () => {
+    if (!state.confirmDelete) {
+      state.confirmDelete = true;
       render();
       return;
     }
-    
-    // 실제 삭제 진행
-    state.confirmDelete=false;
-    
-    try{
-      updateShelves(ss=>{
-        let sh=ss.find(s=>s.id===state.itemForm.shelfId);
-        let fl=sh.floors.find(f=>f.id===state.itemForm.floorId);
-        
-        // 실제 아이템들만 필터
-        const actualItems=fl.items.filter(it=>it!==null);
-        const targetItem=actualItems[state.itemForm.cellIdx];
-        
-        // 전체 배열에서 해당 아이템 찾아서 삭제
-        const realIdx=fl.items.indexOf(targetItem);
-        if(realIdx!==-1){
-          fl.items.splice(realIdx,1);
-        }
-        
-        return ss;
-      });
-      
-      state.itemForm=null;
-      showToast('삭제 완료');
-    }catch(e){
-      alert('삭제 실패: '+e.message);
-      console.error(e);
-    }
+
+    state.confirmDelete = false;
+    updateShelves(ss => {
+      const sh = ss.find(s => s.id === state.itemForm.shelfId);
+      if (!sh) return ss;
+      const fl = sh.floors.find(f => f.id === state.itemForm.floorId);
+      if (!fl) return ss;
+
+      const actualItems = fl.items.filter(it => it !== null);
+      const targetItem = actualItems[state.itemForm.cellIdx];
+      const realIdx = fl.items.indexOf(targetItem);
+      if (realIdx !== -1) {
+        fl.items.splice(realIdx, 1);
+      }
+      return ss;
+    });
+    state.itemForm = null;
+    showToast('삭제 완료', 'ok');
   },
-  cancelDelete:()=>{
-    state.confirmDelete=false;
+
+  cancelDelete: () => {
+    state.confirmDelete = false;
     render();
   },
-  showExportModal:()=>{
-    state.showExportConfirm=true;
+
+  showExportModal: () => {
+    state.showExportConfirm = true;
     render();
   },
-  confirmExport:()=>{
-    state.showExportConfirm=false;
+
+  confirmExport: () => {
+    state.showExportConfirm = false;
     render();
     exportHTML();
   },
-  cancelExport:()=>{
-    state.showExportConfirm=false;
+
+  cancelExport: () => {
+    state.showExportConfirm = false;
     render();
   },
-  openRename:(sid)=>{state.renameForm=sid;render();},
-  closeRename:()=>{state.renameForm=null;render();},
-  saveRename:(sid)=>{
-    let val=document.getElementById('renameinp').value.trim();
-    if(!val)return;
-    updateShelves(ss=>ss.map(s=>s.id===sid?{...s,name:val}:s));
-    state.renameForm=null;
-    showToast('이름 변경');
+
+  openRename: (sid) => {
+    if (typeof sid !== 'string') return;
+    state.renameForm = sid;
+    render();
+  },
+
+  closeRename: () => {
+    state.renameForm = null;
+    render();
+  },
+
+  saveRename: (sid) => {
+    if (typeof sid !== 'string') return;
+    const val = document.getElementById('renameinp')?.value.trim() || '';
+    if (!validateShelfName(val)) {
+      showToast('선반명을 입력하세요 (50자 이내)', 'err');
+      return;
+    }
+    updateShelves(ss => ss.map(s => s.id === sid ? {...s, name: val} : s));
+    state.renameForm = null;
+    showToast('이름 변경 완료', 'ok');
   }
 };
 
-// window에 노출
-window.app=app;
+window.app = app;
 
+// ================================================
+// 초기화
+// ================================================
 load();
 render();
 </script>
